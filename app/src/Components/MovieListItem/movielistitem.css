@@ -1,0 +1,59 @@
+.list-group-item{
+    border-bottom: 1px solid black;
+    padding: 4px;
+    margin-right: 0.5rem;
+    padding-right: 10px;
+
+}
+.list-group-item:last-child{
+    border-bottom: none;
+}
+.list-group-item span{
+    font-weight: 600;
+    max-width: 550px;
+    width: 100%;
+}
+
+.list-group-item input{
+    border: none;
+    text-align: center;
+}
+.list-group-item button{
+    border: none;
+    outline: none;
+    margin: 4px;
+    cursor: pointer;
+    
+    
+}
+.list-group-item i{
+    font-size: 18px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+.list-group-item .fa-star{
+    color: #eeeb1f;
+}
+.list-group-item .fa-cookie{
+    color: #e89f3e;
+}
+.list-group-item .fa-trash{
+    color: #eb538b;
+}
+.list-group-item .fa-star{
+    transition: all .3s;
+    transform: translateX(30px);
+    opacity: 0;
+}
+.list-group-item.like .fa-star {
+    opacity: 1;
+    transform: translateX(10px);
+}
+.list-group-item.favourite .list-group-item-label, 
+.list-group-item.favourite .list-group-item-input{
+    color: #e89f3e;
+} 
+.list-group-item.favourite .btn-star{
+    color: #aeaeae;
+}
