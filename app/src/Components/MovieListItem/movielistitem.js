@@ -13,7 +13,7 @@ class MovieListItem extends Component{
     this.setState(({like}) => ({like: !like}))
   }
   render(){
-    const{name, viewers} = this.props
+    const{name, viewers, onDelete} = this.props
     const{favourite, like } = this.state
     return (
       <li className={`list-group-item d-flex justify-content-between align-items-center  ${favourite && 'favourite'} ${like && 'like'}`} >
@@ -21,12 +21,12 @@ class MovieListItem extends Component{
           <input type="number" className='list-group-item-input' defaultValue={viewers} />
           <div className='d-flex align-items-center'>
               <button type="button" className='btn-cookie btn-sm' onClick={this.onFavourite}>
-              <i class="fa-solid fa-cookie"></i>
+              <i className="fa-solid fa-cookie"></i>
               </button>
               <button type="button" className='btn-trash btn-sm'>
-                  <i className='fas fa-trash' />
+                  <i className='fas fa-trash' onClick={onDelete}/>
               </button>
-              <i class="fa-solid fa-star "></i>
+              <i className="fa-solid fa-star "></i>
           </div>
       </li>
     )
