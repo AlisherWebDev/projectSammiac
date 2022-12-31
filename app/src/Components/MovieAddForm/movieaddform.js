@@ -1,53 +1,38 @@
-import { Component } from "react";
+import {useState } from "react";
 import "./movieaddform.css";
-class MovieAddForm extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      name: '',
-      views: ''
-    }
-  }
-  inputChangeHandler = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
 
+const MovieAddForm = ({addForm}) =>{
+  const [state, setState] = useState({name:'', views: ''})
+   // ========== inputChangeHandler ==================
+  const inputChangeHandler = e => {
+    setState({...state,[e.target.name]: e.target.value })
+  }
+  // ========== addFormHandler ==================
+  const addFormHandler = (e) =>{
     e.preventDefault()
+    if(state.name === '' || state.views === '') return
+    const data = {name:state.name, viewers:state.views}
+    addForm(data)
+    setState({name:'', views:''})
   }
-
-  addFormHandler = e =>{
-    this.props.addForm({name: this.state.name, viewers: this.state.views})
-    this.setState({
-      name: '',
-      views: ''
-    })
-    e.preventDefault()
-  }
-
-
-  render() {
-    const {name, views} = this.state 
     return (
       <div className="movie-add-form ">
         <h3> Yangi kino Qo 'shish</h3> <br />{" "}
-        <form className="add-form d-flex" onSubmit={this.addFormHandler}>
+        <form className="add-form d-flex" onSubmit={addFormHandler}>
           <input
             type="text" className="form-control new-post-label"
             placeholder="Kino nomini kiriting" 
-            onChange={this.inputChangeHandler} 
+            onChange={inputChangeHandler} 
             name='name'
-            value={name}
-            required
+            value={state.name}
           />
           <input
             type="number"
             className="form-control new-post-label"
-            placeholder="Necha marotaba korilgan?" 
-            onChange={this.inputChangeHandler} 
+            placeholder="Necha marotaba ko'rilgan?" 
+            onChange={inputChangeHandler} 
             name='views'
-            value={views}
-            required
+            value={state.views}
           />
           <button type="submit" className="btn btn-outline-dark"> Qo'shish</button>{" "}
         </form>{" "}
@@ -55,6 +40,5 @@ class MovieAddForm extends Component {
     );
   }
 
-};
 
 export default MovieAddForm;
