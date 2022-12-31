@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppInfo from "../AppInfo/appinfo";
 import SearchPanel from "../SearchPanel/searchpanel";
 import AppFilter from "../AppFilter/appfilter";
@@ -8,8 +8,25 @@ import { v4 as uuidv4 } from "uuid";
 import "./app.css";
 
 const App = () => {
-  const [data, setData] = useState(arr);
-
+  useEffect(() =>{
+    setIsLoading(true)
+    fetch('https://jsonplaceholder.typicode.com/users?_start=0&_limit=5')
+      .then(response => response.json())
+      .then(json => {
+        const newArr = json.map(item => ({
+          name: item.name,
+          id: item.id,
+          viewers: item.id*723,
+          favourite: false,
+          like: false,
+        }))
+        setData(newArr)
+      })
+      .catch(err => console.log(err))
+      .finally(()=> setIsLoading(false))
+  },[])
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
   const [term, setTerm] = useState("");
   const [filter, setFilter] = useState("all");
 
@@ -84,6 +101,7 @@ const App = () => {
             updateFilterHandler={updateFilterHandler}
           />
         </div>
+        {isLoading && "Loading"}
         <MovieList
           onToggleProp={onToggleProp}
           data={filterHandler(searchHandler(data, term), filter)}
@@ -95,27 +113,27 @@ const App = () => {
   );
 };
 export default App;
-const arr = [
-  {
-    id: 1,
-    name: "Sherlock Holmes",
-    viewers: 934,
-    favourite: false,
-    like: false,
-  },
-  {
-    id: 2,
-    name: "Venzday Adamslar oilasi",
-    viewers: 576,
-    favourite: false,
-    like: false,
-  },
-  { id: 3, name: "Qat'iyat", viewers: 857, favourite: false, like: false },
-  {
-    id: 4,
-    name: "Forrest Gamp",
-    viewers: 587,
-    favourite: false,
-    like: false,
-  },
-] 
+// const arr = [
+//   {
+//     id: 1,
+//     name: "Sherlock Holmes",
+//     viewers: 934,
+//     favourite: false,
+//     like: false,
+//   },
+//   {
+//     id: 2,
+//     name: "Venzday Adamslar oilasi",
+//     viewers: 576,
+//     favourite: false,
+//     like: false,
+//   },
+//   { id: 3, name: "Qat'iyat", viewers: 857, favourite: false, like: false },
+//   {
+//     id: 4,
+//     name: "Forrest Gamp",
+//     viewers: 587,
+//     favourite: false,
+//     like: false,
+//   },
+// ] 
